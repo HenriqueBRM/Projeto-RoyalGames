@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-titulo);
+    font-family: var(--font-padrao);
+}
+
+:root{
+    --fundo-escuro: #221c2d;
+    --cor-botao: #ff004c;
+    --cor-escura: #0b0616;
+    --cor-roxo: #7a3bff;
+    --cor-branco: #fff;
+    --cor-cinza:#d6d2e6;
+}
+
+.layout_guide{
+    width: 80%;
+}
