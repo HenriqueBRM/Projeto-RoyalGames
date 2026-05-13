@@ -1,0 +1,13 @@
+#login{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    background-color: var(--fundo-escuro);
+    height: 100vh;
+}
+.img_login{
+    height: 100vh;
+}
+.form_login{
+    border-radius: 5px;
+    border-color: var(--cor-branco);
+}

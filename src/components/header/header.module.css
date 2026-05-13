@@ -1,0 +1,30 @@
+#header{
+    height: 12vh;
+    background: linear-gradient(var(--fundo-escuro));
+    display: flex;
+    justify-content: center;
+}
+.container_banner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header_menu{
+    display: flex;
+    gap: 30px;
+}
+.link_header{
+    text-decoration: none;
+    color: var(--cor-branco);
+}
+.button_header{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--fundo-escuro);
+    color: var(--cor-branco);
+    border-color: var(--cor-botao);
+}
+.logo_header{
+    width: 30%;
+}

@@ -1,0 +1,17 @@
+#footer{
+    background:linear-gradient(var(--fundo-escuro)) ;
+    height: 17vh;
+    display: flex;
+    justify-content: center;
+}
+.container_footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu_footer{
+    display: flex;
+    flex-direction: column;
+    color: var(--cor-branco);
+    gap: 10px;
+}

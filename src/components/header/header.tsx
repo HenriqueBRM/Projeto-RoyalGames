@@ -6,19 +6,17 @@ import Link from "next/link";
 const Header = () => {
     return(
         <>
-            <header>
-                <div>
-                    <img src="../imgs/Logo_RoyalGames" alt="Logo RoyalGames" id={styles.logo_header} />
+            <header id={styles.header}>
+                <div className={`${styles.container_banner} layout_guide`}>
+                    <img src="../imgs/Logo_Header.png" alt="LogoRoyalGames" className={styles.logo_header} />
                     
-                    <a href="">Catalogo</a>
-
-                    <button id={styles.button_Header}>
-                        <p>Login</p>
-                    </button>
-
+                    <div className={styles.header_menu}>
+                        <a className={styles.link_header} href="">Catalogo</a>
+                        <button className={styles.button_header}>
+                            <p>Login</p>
+                        </button>
+                    </div>
                 </div>
-
-
             </header>
         
         </>
