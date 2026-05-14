@@ -1,7 +1,7 @@
 import Header from "@/src/components/header/header";
 import Footer from "@/src/components/footer/footer";
 import styles from "./home.module.css";
-
+import ListaGames from "@/src/components/lista-games/lista-games";
 
 const Home = () => {
     return (
@@ -19,12 +19,12 @@ const Home = () => {
                             Seu próximo jogo favorito começa aqui.
                         </p>
                     </div>
-                    <img src="./imgs/Imagem_Banner" alt="" />
+                    <img src="../imgs/Imagem_Banner.png" alt="" />
                 </section>
                 <section>
                     <div>
                         <h2>Catalogo de jogos</h2>
-                        {/*componente lista-games*/}
+                        {/*<ListaGames/>*/}
                     </div>
                 </section>
                 <section>

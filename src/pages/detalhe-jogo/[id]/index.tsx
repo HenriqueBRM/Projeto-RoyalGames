@@ -9,7 +9,7 @@ const DetalheJogo = () => {
             <section>
                 <h2>Detalhes do jogo</h2>
                 <div>
-                    <img src="CLASHROYALE" alt="Imagemjogo" />
+                    <img src="../imgs/CLASHROYALE" alt="Imagemjogo" />
                     <h2>Clash Royale</h2>
                     <p>Clash Royale é um jogo eletrônico de estratégia em tempo real desenvolvido pela Supercell, onde jogadores competem em batalhas online utilizando cartas que representam tropas, 
                         feitiços e construções. O principal objetivo é destruir as torres adversárias enquanto defende sua própria arena, exigindo estratégia, gerenciamento de recursos e tomadas de 

@@ -6,7 +6,7 @@ const Footer = () => {
             <footer id={styles.footer}>
                 <div className={`${styles.container_footer} layout_guide`} >
 
-                    <img src="../imgs/Logo_Header.png" alt="" />
+                    <img src="../imgs/LogoRoyalGames.png" alt="" className={styles.img_footer} />
 
                     <div className={styles.menu_footer}>
                         <p>royalgames@email.com</p>
