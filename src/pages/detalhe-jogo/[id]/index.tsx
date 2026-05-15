@@ -1,8 +1,46 @@
 import Header from "@/src/components/header/header";
 import Footer from "@/src/components/footer/footer";
+import { useParams } from "next/navigation";
+import { listarPorId } from "../../api/jogoService";
+import { useEffect, useState } from "react";
+import { formatarPreco } from "@/src/utils/formatacao";
+
+interface Jogo {
+    nome: string;
+    preco: number;
+    descricao: string;
+    imagemUrl: string;
+    generoID: number[];
+    plataformaID: number[];
+    classificacaoId: number[];
+}
+
+
 
 const DetalheJogo = () => {
 
+    const [jogo, setJogo] = useState<Jogo>();
+    const params = useParams();
+    const id = params?.id;
+
+    async function listarJogo(){
+        try{
+            const response = await listarPorId(3);
+            console.log(response);
+            setJogo(response);
+        }catch(error:any){
+            console.log(error.message)
+        }
+    }
+
+    useEffect(() => {
+        if (!id) return;
+
+        setTimeout(() => {
+            listarJogo();
+        },1000);
+    }, [id]);
+    
     return(
         <>
             <Header/>
@@ -30,3 +68,4 @@ const DetalheJogo = () => {
         </>
     )
 }
+export default DetalheJogo

@@ -22,9 +22,12 @@
     height: 30px;
     border-radius: 5px;
     background-color: var(--fundo-escuro);
-    color: var(--cor-branco);
     border-color: var(--cor-botao);
 }
 .logo_header{
     width: 13%;
+}
+.texto_link{
+    text-decoration: none;
+    color: var(--cor-branco);
 }

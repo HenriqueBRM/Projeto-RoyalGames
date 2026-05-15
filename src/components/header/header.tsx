@@ -13,7 +13,7 @@ const Header = () => {
                     <div className={styles.header_menu}>
                         <a className={styles.link_header} href="">Catalogo</a>
                         <button className={styles.button_header}>
-                            <p>Login</p>
+                            <Link href="/login" className={styles.texto_link}>Login</Link>
                         </button>
                     </div>
                 </div>

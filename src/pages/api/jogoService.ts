@@ -1,0 +1,80 @@
+import {api} from "./api";
+
+// base para cadastro de produtos
+type JogoFormulario = {
+    nome: string,
+    preco: string,
+    descricao: string,
+    imagem: File | null,
+    generoID: number[],
+    plataformaID: number[],
+    classificacaoId: number[],
+}
+
+interface JogoListagem {
+    nome: string,
+    preco: number,
+    descricao: string,
+    imagemUrl: string,
+    statusJogo: boolean,
+    generoID: number[],
+    plataformaID: number[],
+    classificacaoId: number[],
+}
+
+export async function cadastrarJogo(dados: JogoFormulario){
+    try{
+        const formData = new FormData();
+
+        formData.append("nome", dados.nome);
+        formData.append("preco", dados.preco);
+        formData.append("descricao", dados.descricao);
+        if (dados.imagem)
+            formData.append("imagem", dados.imagem);
+
+        dados.generoID.forEach((id) =>{
+            formData.append("generoID", id.toString());
+        })
+        dados.plataformaID.forEach((id)=> {
+            formData.append("plataformaID", id.toString());
+        })
+        dados.classificacaoId.forEach((id)=>{
+            formData.append("classificacaoId", id.toString());
+        })
+
+        await api.post("Produto", formData);
+    }catch(error:any){
+        throw new Error(error.response.data);1
+    }
+}
+
+export async function listarProduto(){
+    try{
+        const response = await api.get("Produto");
+        const jogosAtivos = response.data.filter(
+            (jogo: JogoListagem) => jogo.statusJogo === true
+        );
+        const jogos = jogosAtivos.map((jogo: JogoListagem)=> ({
+            ...listarProduto,
+            imagemUrl: `${api.defaults.baseURL}${jogo.imagemUrl}`
+        }))
+        return jogos;
+    }catch(error: any){
+        throw new Error(error.message)
+    }
+}
+
+export async function listarPorId(id:number){
+    try{
+        const response = await api.get("Produto/" + id);
+
+        const jogo = {...response.data,
+            imagemUrl: `${api.defaults.baseURL}${response.data.imagemUrl}`
+        };
+
+        return jogo;
+
+    }catch(error:any){
+        throw new Error(error.response.data)
+    }
+}
