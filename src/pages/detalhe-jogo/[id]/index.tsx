@@ -10,25 +10,25 @@ interface Jogo {
     preco: number;
     descricao: string;
     imagemUrl: string;
-    generoID: number[];
-    plataformaID: number[];
-    classificacaoId: number[];
+    generos: string[];
+    plataformas: string[];
+    classificacaoIndicativas: string[];
 }
-
-
 
 const DetalheJogo = () => {
 
     const [jogo, setJogo] = useState<Jogo>();
+
     const params = useParams();
+    
     const id = params?.id;
 
-    async function listarJogo(){
-        try{
-            const response = await listarPorId(3);
+    async function listarJogo() {
+        try {
+            const response = await listarPorId(Number(id));
             console.log(response);
             setJogo(response);
-        }catch(error:any){
+        } catch (error: any) {
             console.log(error.message)
         }
     }
@@ -38,33 +38,56 @@ const DetalheJogo = () => {
 
         setTimeout(() => {
             listarJogo();
-        },1000);
+        }, 1000);
     }, [id]);
-    
-    return(
+
+    return (
         <>
-            <Header/>
-            <section>
-                <h2>Detalhes do jogo</h2>
-                <div>
-                    <img src="../imgs/CLASHROYALE" alt="Imagemjogo" />
-                    <h2>Clash Royale</h2>
-                    <p>Clash Royale é um jogo eletrônico de estratégia em tempo real desenvolvido pela Supercell, onde jogadores competem em batalhas online utilizando cartas que representam tropas, 
-                        feitiços e construções. O principal objetivo é destruir as torres adversárias enquanto defende sua própria arena, exigindo estratégia, gerenciamento de recursos e tomadas de 
-                        decisão rápidas durante as partidas.O jogo possui diferentes arenas, modos de jogo e sistemas de progressão, permitindo desbloquear novas cartas e melhorar personagens
-                        ao longo do tempo. Além disso, Clash Royale conta com eventos especiais, temporadas competitivas, clãs e torneios globais, mantendo uma comunidade ativa e um cenário competitivo 
-                        entre jogadores do mundo inteiro.
-                    </p>
-                </div>
-                <div>
-                    <p>Classificacao Indicativa</p>
-                    <p>Preco</p>
-                    <p>Plataformas</p>
-                    <p>Categorias</p>
-                    <p>Generos</p>
-                </div>
-            </section>           
-            <Footer/>
+            <Header />
+            <main>
+                <section>
+                    {jogo ? (
+                        <>
+                            <h2>Detalhes do {jogo.nome}</h2>
+                            <article>
+                                <img src={jogo.imagemUrl} alt="Imagemjogo" />
+                                <div>
+                                    <h2>{jogo.nome}</h2>
+                                    <p>{jogo.descricao}</p>
+                                </div>
+                            </article>
+                            <div>
+                                <p>Classificacao Indicativa</p>
+                                <ul>
+                                    {jogo?.classificacaoIndicativas.map((cla) => (
+                                        <li key={cla}>{cla}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <p>Preco(R$): {formatarPreco(jogo.preco)}</p>
+                            </div>
+                            <div>
+                                <p>Plataformas</p>
+                                <ul>
+                                    {jogo?.plataformas.map((pla) =>(
+                                        <li key={pla}>{pla}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <p>Generos</p>
+                                <ul>
+                                    {jogo.generos.map((gen) =>(
+                                        <li key={gen}>{gen}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    ) : (<p>Carregando jogo.... </p>)}
+                </section>
+            </main >
+            <Footer />
         </>
     )
 }

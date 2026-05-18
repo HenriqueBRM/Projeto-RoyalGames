@@ -3,8 +3,9 @@ import secureLocalStorage from "react-secure-storage";
 
 export async function login(email: string, senha: string){
     try{
-        const response =await api.post("Autenticacao/login",{email, senha});
+        const response = await api.post("Autenticacao/login",{email, senha});
         const token = response.data.token;
+
         secureLocalStorage.setItem("tokenUsuario", token);
 
     }catch(error:any){

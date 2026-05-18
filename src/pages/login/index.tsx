@@ -17,15 +17,15 @@ const Login = () => {
         try{
             await login(email,senha);
             notificacao("Bem-vindo ao RoyalGames")
+
             setTimeout(() => {
                 router.push("/home");
-            }, 2000)
+            }, 2000);
+
         }catch(error:any){
             erro(error.message)
         }
     }
-    console.log(email);
-    console.log(senha);
 
     return (
         <>
@@ -41,7 +41,7 @@ const Login = () => {
                                 value={email} onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className={styles.campo_label}>
-                                <label htmlFor="">Senha</label>
+                                <label htmlFor="senha">Senha</label>
                                 <input type="password" name="senha" placeholder="********" required 
                                 value={senha} onChange={(e) => setSenha(e.target.value)}/>
                             </div>

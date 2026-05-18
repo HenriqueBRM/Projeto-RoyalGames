@@ -1,6 +1,17 @@
 import styles from "./card-jogo.module.css"
 
-const CardJogo = () => {
+type Jogo ={
+    titulo: string,
+    imagem: string,
+    preco: number,
+    jogoId: number
+    //Criando uma props que recebe uma funcao
+    onDelete: (produtoID: number) => void 
+    estaLogado: boolean
+}
+
+
+const CardJogo = ({titulo, imagem, preco,jogoId, onDelete, estaLogado}: Jogo) => {
     return (
         <>
             <article className={styles.card_jogo}>
