@@ -1,7 +1,7 @@
-import Header from "@/src/components/header/header";
-import Footer from "@/src/components/footer/footer";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 import styles from "./home.module.css";
-import ListaGames from "@/src/components/lista-games/lista-games";
+import ListaGames from "../../components/lista-games/lista-games";
 
 const Home = () => {
     return (

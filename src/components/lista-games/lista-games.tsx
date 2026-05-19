@@ -1,11 +1,10 @@
 import styles from "./lista-games.module.css"
 import CardJogo from "../card-jogo/card-jogo"
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { excluirJogo, listarJogo } from "@/src/pages/api/jogoService";
-import { toastConfirmarExclusao } from "@/src/utils/toast";
-import { erro, notificacao } from "@/src/utils/toast";
-import { verificarAutenticacao } from "@/src/utils/auth";
+import {useState,useEffect} from "react";
+import { excluirJogo, listarJogo } from "../../pages/api/jogoService";
+import { toastConfirmarExclusao } from "../../utils/toast";
+import { erro, notificacao } from "../../utils/toast";
+import { verificarAutenticacao } from "../../utils/auth";
 
 interface Jogo {
     jogoId: number
@@ -15,13 +14,19 @@ interface Jogo {
     imagemUrl: string
     statusJogo: boolean
 }
+interface Genero{
+    generoId: number,
+    nome: string
+}
 
 const ListaGames = () => {
 
+    const [genero, setGenero] = useState<Genero[]>([])
     const [jogos, setJogos] = useState<Jogo[]>([]);
     const [ordem, setOrdem] = useState("todos");
     const [pesquisa, setPesquisa] = useState("");
     const [estaAutenticado, setEstaAutenticado] = useState(false);
+    const [generosSelecionados, setGenerosSelecionados] = useState<number[]>([])
 
     async function listar() {
         try {
@@ -79,15 +84,18 @@ const ListaGames = () => {
                     <option value="decrescente">Decrescente</option>
                     <option value="todos">Todos</option>
                 </select>
-                <select className={styles.filtro}>
-                    Genero
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-            </div>
+                <select className={styles.filtro}
+
+                    value={generosSelecionados.map(String)}
+                    onChange={(e) => setGenerosSelecionados(
+                        Array.from(e.target.selectedOptions).map((option) => Number(option.value))
+                    )}> Genero
+                      {genero.map((item)=>(
+                            <option value={item.generoId} key={item.generoId}>{item.nome}</option>
+                      )
+                    )}  
+            </select>
+        </div >
             <div className={styles.cards_jogos}>
                 {jogosFiltrados.length > 0 ? jogos.map((item) => (
                     <CardJogo
@@ -96,7 +104,7 @@ const ListaGames = () => {
                         titulo={item.nome}
                         preco={item.preco}
                         imagem={item.imagemUrl}
-                        onDelete={confirmarExclusao}  
+                        onDelete={confirmarExclusao}
                         estaLogado={estaAutenticado}
                     />
 

@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import "@/src/styles/global.css"
+import "../styles/global.css"
 import { Orbitron } from "next/font/google";
 import { Exo_2 } from "next/font/google";
 

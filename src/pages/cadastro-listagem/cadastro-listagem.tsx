@@ -1,10 +1,10 @@
-import Header from "@/src/components/header/header";
-import Footer from "@/src/components/footer/footer";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
+import { cadastrarJogo } from "../api/jogoService";
 
 const CadastraJogo = () => {
 
     return(
-
         <>
             <Header/>
             <section>
@@ -40,3 +40,5 @@ const CadastraJogo = () => {
         </>
     )
 }
+
+export default CadastraJogo

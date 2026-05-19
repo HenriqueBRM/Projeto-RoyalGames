@@ -1,9 +1,9 @@
-import Header from "@/src/components/header/header";
-import Footer from "@/src/components/footer/footer";
+import Header from "../../../components/header/header";
+import Footer from "../../../components/footer/footer";
 import { useParams } from "next/navigation";
 import { listarPorId } from "../../api/jogoService";
 import { useEffect, useState } from "react";
-import { formatarPreco } from "@/src/utils/formatacao";
+import { formatarPreco } from "../../../utils/formatacao";
 
 interface Jogo {
     nome: string;

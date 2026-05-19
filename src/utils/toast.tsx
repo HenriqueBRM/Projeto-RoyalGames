@@ -3,12 +3,12 @@ import {toast, Slide} from "react-toastify";
 export const notificacao = (msg: string) => toast.success(msg,{
     icon:() => "🎮",
     transition: Slide,
-    theme: "colored"
+    theme: "light"
 });
 export const erro = (msg:string) => toast.error(msg,{
     icon:() => "🎮",
     transition: Slide,
-    theme: "colored"
+    theme: "light"
 });
 export const toastConfirmarExclusao = (aoConfirmar: () => void) => {
         toast(

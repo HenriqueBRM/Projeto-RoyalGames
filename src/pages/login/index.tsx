@@ -2,7 +2,7 @@ import styles from "./login.module.css";
 import {useState} from "react";
 import {login} from "../api/authService";
 import {useRouter} from "next/navigation";
-import {erro, notificacao} from "@/src/utils/toast";
+import {erro, notificacao} from "../../utils/toast";
 
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
 
             setTimeout(() => {
                 router.push("/home");
-            }, 2000);
+            }, 1000);
 
         }catch(error:any){
             erro(error.message)
