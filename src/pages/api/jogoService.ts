@@ -8,7 +8,7 @@ type JogoFormulario = {
     imagem: File | null,
     generoID: number[],
     plataformaID: number[],
-    classificacaoId: number[],
+    classificacaoId: number,
 }
 
 interface JogoListagem {
@@ -19,7 +19,7 @@ interface JogoListagem {
     statusJogo: boolean,
     generoID: number[],
     plataformaID: number[],
-    classificacaoId: number[],
+    classificacaoId: number,
 }
 
 export async function cadastrarJogo(dados: JogoFormulario){
@@ -38,13 +38,11 @@ export async function cadastrarJogo(dados: JogoFormulario){
         dados.plataformaID.forEach((id)=> {
             formData.append("plataformaID", id.toString());
         })
-        dados.classificacaoId.forEach((id)=>{
-            formData.append("classificacaoId", id.toString());
-        })
+        formData.append("classificacaoId", dados.classificacaoId.toString());
 
         await api.post("Jogo", formData);
     }catch(error:any){
-        throw new Error(error.response.data);1
+        throw new Error(error.response.data);
     }
 }
 
@@ -55,7 +53,7 @@ export async function listarJogo(){
             (jogo: JogoListagem) => jogo.statusJogo === true
         );
         const jogos = jogosAtivos.map((jogo: JogoListagem)=> ({
-            ...listarJogo,
+            ...jogo,
             imagemUrl: `${api.defaults.baseURL}${jogo.imagemUrl}`
         }))
         return jogos;
@@ -72,6 +70,7 @@ export async function listarPorId(id:number){
             imagemUrl: `${api.defaults.baseURL}${response.data.imagemUrl}`
         };
 
+        
         return jogo;
 
     }catch(error:any){
@@ -101,10 +100,7 @@ export async function editarJogo(jogoId: number, dados: JogoFormulario){
         dados.plataformaID.forEach((id) =>{
             formData.append("plataformasId", id.toString());
         })
-        dados.classificacaoId.forEach((id) =>{
-            formData.append("classificacoesId", id.toString());
-        })
-
+        formData.append("classificacaoId", dados.classificacaoId.toString());
         await api.put("Jogo/" + jogoId, formData)
     }catch (error:any){
         throw new Error(error.response.data)

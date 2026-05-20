@@ -1,9 +1,9 @@
-import Header from "../../../components/header/header";
-import Footer from "../../../components/footer/footer";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 import { useParams } from "next/navigation";
-import { listarPorId } from "../../api/jogoService";
+import { listarPorId } from "../api/jogoService";
 import { useEffect, useState } from "react";
-import { formatarPreco } from "../../../utils/formatacao";
+import { formatarPreco } from "../../utils/formatacao";
 
 interface Jogo {
     nome: string;
@@ -12,7 +12,7 @@ interface Jogo {
     imagemUrl: string;
     generos: string[];
     plataformas: string[];
-    classificacaoIndicativas: string[];
+    classificacao: string;
 }
 
 const DetalheJogo = () => {
@@ -32,6 +32,8 @@ const DetalheJogo = () => {
             console.log(error.message)
         }
     }
+    console.log(params)
+    console.log(id)
 
     useEffect(() => {
         if (!id) return;
@@ -58,11 +60,9 @@ const DetalheJogo = () => {
                             </article>
                             <div>
                                 <p>Classificacao Indicativa</p>
-                                <ul>
-                                    {jogo?.classificacaoIndicativas.map((cla) => (
-                                        <li key={cla}>{cla}</li>
-                                    ))}
-                                </ul>
+                                <p>
+                                    {jogo.classificacao}
+                                </p>
                             </div>
                             <div>
                                 <p>Preco(R$): {formatarPreco(jogo.preco)}</p>
@@ -70,7 +70,7 @@ const DetalheJogo = () => {
                             <div>
                                 <p>Plataformas</p>
                                 <ul>
-                                    {jogo?.plataformas.map((pla) =>(
+                                    {jogo.plataformas?.map((pla) =>(
                                         <li key={pla}>{pla}</li>
                                     ))}
                                 </ul>
@@ -78,7 +78,7 @@ const DetalheJogo = () => {
                             <div>
                                 <p>Generos</p>
                                 <ul>
-                                    {jogo.generos.map((gen) =>(
+                                    {jogo.generos?.map((gen) =>(
                                         <li key={gen}>{gen}</li>
                                     ))}
                                 </ul>
