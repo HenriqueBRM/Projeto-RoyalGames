@@ -101,6 +101,7 @@ export async function editarJogo(jogoId: number, dados: JogoFormulario){
             formData.append("plataformasId", id.toString());
         })
         formData.append("classificacaoId", dados.classificacaoId.toString());
+
         await api.put("Jogo/" + jogoId, formData)
     }catch (error:any){
         throw new Error(error.response.data)
