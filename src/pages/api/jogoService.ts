@@ -13,7 +13,7 @@ type JogoFormulario = {
 
 interface JogoListagem {
     nome: string,
-    preco: number,
+    preco: string,
     descricao: string,
     imagemUrl: string,
     statusJogo: boolean,
@@ -27,20 +27,22 @@ export async function cadastrarJogo(dados: JogoFormulario){
         const formData = new FormData();
 
         formData.append("nome", dados.nome);
-        formData.append("preco", dados.preco);
         formData.append("descricao", dados.descricao);
+        formData.append("preco", dados.preco);
         if (dados.imagem)
             formData.append("imagem", dados.imagem);
 
-        dados.generoID.forEach((id) =>{
-            formData.append("generoID", id.toString());
-        })
-        dados.plataformaID.forEach((id)=> {
-            formData.append("plataformaID", id.toString());
-        })
+        dados.generoID.forEach((id) =>
+            formData.append("generoID", id.toString()));
+        
+        dados.plataformaID.forEach((id)=> 
+            formData.append("plataformaID", id.toString()));
+        
         formData.append("classificacaoId", dados.classificacaoId.toString());
 
         await api.post("Jogo", formData);
+        console.log("Jogo cadastrado com sucesso")
+
     }catch(error:any){
         throw new Error(error.response.data);
     }
@@ -69,7 +71,6 @@ export async function listarPorId(id:number){
         const jogo = {...response.data,
             imagemUrl: `${api.defaults.baseURL}${response.data.imagemUrl}`
         };
-
         
         return jogo;
 
@@ -77,22 +78,15 @@ export async function listarPorId(id:number){
         throw new Error(error.response.data)
     }
 }
-export async function excluirJogo(jogoId: number){
-    try{
-        await api.delete("Jogo/" + jogoId)
-    }catch(error:any){
-        throw new Error(error.response.data)
-    }
-}
 export async function editarJogo(jogoId: number, dados: JogoFormulario){
     try{
         const formData = new FormData();
-
+        
         formData.append("nome", dados.nome);
         formData.append("descricao", dados.descricao);
         formData.append("preco", dados.preco);
         if(dados.imagem)
-        formData.append("imagem", dados.imagem);
+            formData.append("imagem", dados.imagem);
         
         dados.generoID.forEach((id) =>{
             formData.append("generosId", id.toString());
@@ -101,9 +95,16 @@ export async function editarJogo(jogoId: number, dados: JogoFormulario){
             formData.append("plataformasId", id.toString());
         })
         formData.append("classificacaoId", dados.classificacaoId.toString());
-
+        
         await api.put("Jogo/" + jogoId, formData)
     }catch (error:any){
+        throw new Error(error.response.data)
+    }
+}
+export async function excluirJogo(jogoId: number){
+    try{
+        await api.delete("Jogo/" + jogoId)
+    }catch(error:any){
         throw new Error(error.response.data)
     }
 }

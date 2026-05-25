@@ -24,7 +24,7 @@ const Home = () => {
                 <section>
                     <div>
                         <h2>Catalogo de jogos</h2>
-                        {/*<ListaGames/>*/}
+                        <ListaGames/>
                     </div>
                 </section>
                 <section>

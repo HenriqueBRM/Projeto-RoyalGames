@@ -1,5 +1,5 @@
 import { formatarPreco } from "../../utils/formatacao";
-import styles from "@/src/components/card-jogo/card-jogo.module.css"
+import styles from "../card-jogo/card-jogo.module.css"
 import Link from "next/link";
 
 type Jogo ={

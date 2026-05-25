@@ -15,11 +15,11 @@ interface Classificacao {
     classificacao: string
 }
 interface Genero {
-    generoID: number,
+    generoId: number,
     nome: string
 }
 interface Plataforma {
-    plataformaID: number,
+    plataformaId: number,
     nome: string
 }
 
@@ -44,7 +44,7 @@ const CadastraJogo = () => {
     const router = useRouter();
     const id = router.query.id;
 
-    let telaEditar = id ? true : false
+    const telaEditar = id ? true : false
 
 
     async function listarClassificacaoEmJogo() {
@@ -78,24 +78,24 @@ const CadastraJogo = () => {
     async function SalvarJogo(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
-            if(classificacoesSelecionadas.length === 0){
+            if (classificacoesSelecionadas.length === 0) {
                 erro("Classificacao indicativa eh obrigatoria!");
                 return;
             }
             const dados = {
                 nome,
-                descricao,
                 preco,
-                imagem,
-                classificacaoId: classificacoesSelecionadas[0],
                 generoID: generosSelecionados,
-                plataformaID: plataformasSelecionadas
+                classificacaoId: classificacoesSelecionadas[0],
+                plataformaID: plataformasSelecionadas,
+                imagem,
+                descricao,
             };
 
-            if(telaEditar){
+            if (telaEditar) {
                 await editarJogo(Number(id), dados);
                 notificacao("Jogo editado com sucesso!");
-            }else{
+            } else {
                 await cadastrarJogo(dados);
                 notificacao("Jogo cadastrado com sucesso!");
             }
@@ -106,7 +106,8 @@ const CadastraJogo = () => {
     }
 
     useEffect(() => {
-        if (!router.isReady) return
+        if (!router.isReady) return;
+
         if (!verificarAutenticacao()) {
             router.push("/home")
             return;
@@ -117,11 +118,14 @@ const CadastraJogo = () => {
         listarPlataformaEmJogo();
         listarClassificacaoEmJogo();
 
+        if(telaEditar)
         carregarInformacoes();
+
     }, [router.isReady, id])
 
     if (!estaAutenticado)
         return null;
+
     return (
         <>
             <Header />
@@ -142,21 +146,28 @@ const CadastraJogo = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="genero">Genero</label>
-                        <select multiple                            
+                        <label htmlFor="descricao">Descricao</label>
+                        <input type="text" required
+                            value={descricao} onChange={(e) => setDescricao(e.target.value)}/>
+                    </div>
+
+                    <div>
+                        <label htmlFor="">Genero</label>
+                        <select multiple size={4}
                             value={generosSelecionados.map(String)}
                             onChange={(e) => setGenerosSelecionados(
                                 Array.from(e.target.selectedOptions).map((option) => Number(option.value))
                             )}>
-                                {genero.map((item) => (
-                                <option value={item.generoID} key={item.generoID}>{item.nome}</option>
+                            {genero.map((g) => (
+                                
+                                <option key={g.generoId} value={g.generoId}>{g.nome}</option>
                             )
                             )}
                         </select>
                     </div>
 
                     <div>
-                        <label htmlFor="classificacao_indicativa">Classificacao Indicativa</label>
+                        <label htmlFor="">Classificacao Indicativa</label>
                         <select value={classificacoesSelecionadas.toString()} onChange={(e) =>
                             setClassificacoesSelecionadas([Number(e.target.value),])} required><option>Selecione</option>
                             {classificacao.map((c) => (<option key={c.classificacaoIndicativaId} value={c.classificacaoIndicativaId}>{c.classificacao}</option>))}
@@ -164,14 +175,14 @@ const CadastraJogo = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="plataforma">Plataforma</label>
-                        <select multiple
+                        <label htmlFor="">Plataforma</label>
+                        <select multiple size={4}
                             value={plataformasSelecionadas.map(String)}
                             onChange={(e) => setPlataformasSelecionadas(
-                                Array.from(e.target.selectedOptions).map((option) => Number(option.value))
+                                Array.from(e.target.selectedOptions).map((o) => Number(o.value))
                             )}>
-                            {plataforma.map((item) => (
-                                <option value={item.plataformaID} key={item.plataformaID}>{item.nome}</option>
+                            {plataforma.map((p) => (
+                                <option value={p.plataformaId} key={p.plataformaId}>{p.nome}</option>
                             )
                             )}
                         </select>
